@@ -28,17 +28,10 @@ body {
   justify-content: space-between;
   padding: 0 8px;
   flex-shrink: 0;
-  -webkit-app-region: drag;
 }
-#titlebar .traffic {
-  display: flex; gap: 6px; align-items: center;
-}
-#titlebar .traffic span {
-  width: 12px; height: 12px; border-radius: 50%;
-}
-.t-red { background: #ff5f57; }
-.t-yellow { background: #febc2e; }
-.t-green { background: #28c840; }
+#titlebar .traffic { display: flex; gap: 6px; align-items: center; }
+#titlebar .traffic span { width: 12px; height: 12px; border-radius: 50%; }
+.t-red{background:#ff5f57}.t-yellow{background:#febc2e}.t-green{background:#28c840}
 #titlebar .title-center {
   position: absolute; left: 50%; transform: translateX(-50%);
   color: #cccccc; font-size: 12px;
@@ -47,229 +40,83 @@ body {
 
 /* ── Menu Bar ── */
 #menubar {
-  background: #3c3c3c;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  padding: 0 4px;
-  gap: 2px;
-  flex-shrink: 0;
+  background: #3c3c3c; height: 25px;
+  display: flex; align-items: center; padding: 0 4px; gap: 2px; flex-shrink: 0;
 }
-.menu-item {
-  padding: 2px 8px;
-  color: #cccccc;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 3px;
-}
+.menu-item { padding: 2px 8px; color: #cccccc; font-size: 12px; cursor: pointer; border-radius: 3px; }
 .menu-item:hover { background: rgba(255,255,255,0.1); }
 
 /* ── Main Layout ── */
-#main {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
+#main { flex: 1; display: flex; overflow: hidden; }
 
 /* ── Activity Bar ── */
 #activitybar {
-  width: 48px;
-  background: #333333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px 0;
-  gap: 4px;
-  flex-shrink: 0;
+  width: 48px; background: #333333;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 0; gap: 4px; flex-shrink: 0;
 }
 .act-icon {
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
-  color: #858585;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 4px;
-  position: relative;
+  color: #858585; font-size: 20px; cursor: pointer; border-radius: 4px;
 }
 .act-icon:hover { color: #cccccc; }
 .act-icon.active { color: #cccccc; border-left: 2px solid #cccccc; }
 
 /* ── Sidebar ── */
-#sidebar {
-  width: 220px;
-  background: #252526;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-#sidebar-title {
-  padding: 8px 12px;
-  font-size: 11px;
-  color: #bbbbbb;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
+#sidebar { width: 220px; background: #252526; display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; }
+#sidebar-title { padding: 8px 12px; font-size: 11px; color: #bbbbbb; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; }
 .file-tree { flex: 1; overflow-y: auto; }
-.tree-folder {
-  padding: 3px 8px 3px 16px;
-  color: #cccccc;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
+.tree-folder { padding: 3px 8px 3px 16px; color: #cccccc; font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; }
 .tree-folder:hover { background: #2a2d2e; }
-.tree-file {
-  padding: 3px 8px 3px 32px;
-  color: #cccccc;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
+.tree-file { padding: 3px 8px 3px 32px; color: #cccccc; font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; }
 .tree-file:hover { background: #2a2d2e; }
 .tree-file.active { background: #094771; color: #fff; }
-.icon-py { color: #3572A5; }
-.icon-json { color: #cbcb41; }
-.icon-md { color: #519aba; }
-.icon-txt { color: #d4d4d4; }
+.icon-py{color:#3572A5}.icon-json{color:#cbcb41}.icon-md{color:#519aba}.icon-txt{color:#d4d4d4}
 
 /* ── Editor Area ── */
-#editor-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+#editor-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
 /* Tab Bar */
-#tabs {
-  background: #2d2d2d;
-  display: flex;
-  height: 35px;
-  flex-shrink: 0;
-  border-bottom: 1px solid #1e1e1e;
-  overflow-x: auto;
-}
+#tabs { background: #2d2d2d; display: flex; height: 35px; flex-shrink: 0; border-bottom: 1px solid #1e1e1e; overflow-x: auto; }
 #tabs::-webkit-scrollbar { height: 0; }
 .tab {
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  gap: 8px;
-  font-size: 12px;
-  color: #969696;
-  border-right: 1px solid #1e1e1e;
-  cursor: pointer;
-  white-space: nowrap;
-  min-width: 120px;
-  background: #2d2d2d;
+  display: flex; align-items: center; padding: 0 14px; gap: 8px;
+  font-size: 12px; color: #969696; border-right: 1px solid #1e1e1e;
+  cursor: pointer; white-space: nowrap; min-width: 120px; background: #2d2d2d;
 }
-.tab.active {
-  background: #1e1e1e;
-  color: #cccccc;
-  border-top: 1px solid #0078d4;
-}
-.tab .tab-close {
-  color: #666;
-  font-size: 14px;
-  margin-left: auto;
-  padding: 0 2px;
-}
-.tab .tab-close:hover { color: #ccc; }
+.tab.active { background: #1e1e1e; color: #cccccc; border-top: 1px solid #0078d4; }
+.tab .tab-close { color: #666; font-size: 14px; margin-left: auto; padding: 0 2px; }
 
 /* Editor + Gutter */
-#editor-wrap {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-}
+#editor-wrap { flex: 1; display: flex; overflow: hidden; position: relative; }
 #gutter {
-  width: 52px;
-  background: #1e1e1e;
-  color: #858585;
-  font-size: 12px;
-  line-height: 1.6;
-  padding: 12px 0;
-  text-align: right;
-  padding-right: 12px;
-  flex-shrink: 0;
-  overflow: hidden;
-  user-select: none;
+  width: 52px; background: #1e1e1e; color: #858585;
+  font-size: 12px; line-height: 1.6; padding: 12px 12px 12px 0;
+  text-align: right; flex-shrink: 0; overflow: hidden; user-select: none;
 }
-#editor-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 0 12px 16px;
-  line-height: 1.6;
-  font-size: 13px;
-  outline: none;
-}
+#editor-content { flex: 1; overflow-y: auto; padding: 12px 0 12px 16px; line-height: 1.6; font-size: 13px; outline: none; }
 #editor-content::-webkit-scrollbar { width: 6px; }
-#editor-content::-webkit-scrollbar-track { background: #1e1e1e; }
 #editor-content::-webkit-scrollbar-thumb { background: #424242; border-radius: 3px; }
+.kw{color:#569cd6}.fn{color:#dcdcaa}.str{color:#ce9178}.num{color:#b5cea8}
+.cmt{color:#6a9955}.cls{color:#4ec9b0}.var{color:#9cdcfe}.op{color:#d4d4d4}.pun{color:#d4d4d4}
+.code-line { display: block; white-space: pre; min-height: 20.8px; }
 
-/* Syntax highlight colors */
-.kw  { color: #569cd6; }   /* keyword */
-.fn  { color: #dcdcaa; }   /* function */
-.str { color: #ce9178; }   /* string */
-.num { color: #b5cea8; }   /* number */
-.cmt { color: #6a9955; }   /* comment */
-.cls { color: #4ec9b0; }   /* class */
-.var { color: #9cdcfe; }   /* variable */
-.op  { color: #d4d4d4; }   /* operator */
-.pun { color: #d4d4d4; }   /* punctuation */
-
-.code-line {
-  display: block;
-  white-space: pre;
-  min-height: 20.8px;
-}
-.code-line.highlight { background: rgba(0,120,212,0.15); }
-
-/* ── 遊戲輸入區（偽裝成終端機）── */
+/* ── Terminal Panel ── */
 #terminal-panel {
-  height: 200px;
-  background: #1e1e1e;
+  height: 210px; background: #1e1e1e;
   border-top: 1px solid #3c3c3c;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
+  display: flex; flex-direction: column; flex-shrink: 0;
 }
 #terminal-tabs {
-  background: #2d2d2d;
-  display: flex;
-  height: 28px;
-  align-items: center;
-  border-bottom: 1px solid #1e1e1e;
-  padding: 0 8px;
-  gap: 4px;
+  background: #2d2d2d; display: flex; height: 28px;
+  align-items: center; border-bottom: 1px solid #1e1e1e; padding: 0 8px; gap: 4px;
 }
-.term-tab {
-  font-size: 12px;
-  color: #969696;
-  padding: 0 10px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
+.term-tab { font-size: 12px; color: #969696; padding: 0 10px; height: 100%; display: flex; align-items: center; cursor: pointer; }
 .term-tab.active { color: #cccccc; border-bottom: 1px solid #0078d4; }
-#terminal-output {
-  flex: 1;
-  overflow-y: auto;
-  padding: 6px 12px;
-  font-size: 12px;
-  line-height: 1.7;
-}
+#terminal-output { flex: 1; overflow-y: auto; padding: 6px 12px; font-size: 12px; line-height: 1.7; }
 #terminal-output::-webkit-scrollbar { width: 4px; }
 #terminal-output::-webkit-scrollbar-thumb { background: #424242; }
-
 .tline { display: block; }
 .tline.sys   { color: #569cd6; }
 .tline.user  { color: #4ec9b0; }
@@ -278,259 +125,127 @@ body {
 .tline.event { color: #f44747; }
 .tline.info  { color: #6a9955; }
 .tline.sep   { color: #3c3c3c; }
-
 .ttyping::after { content: '▌'; animation: tblink 0.8s step-end infinite; color: #d4d4d4; }
 @keyframes tblink { 50%{opacity:0} }
 
 #input-row {
-  display: flex;
-  align-items: center;
-  padding: 4px 12px;
-  gap: 8px;
-  border-top: 1px solid #3c3c3c;
-  background: #1e1e1e;
-  flex-shrink: 0;
+  display: flex; align-items: center;
+  padding: 4px 12px; gap: 8px;
+  border-top: 1px solid #3c3c3c; background: #1e1e1e; flex-shrink: 0;
 }
 #prompt-ps { color: #4ec9b0; font-size: 12px; white-space: nowrap; }
 #cmd {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #d4d4d4;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  outline: none;
-  caret-color: #d4d4d4;
+  flex: 1; background: transparent; border: none;
+  color: #d4d4d4; font-family: 'Fira Code', monospace;
+  font-size: 12px; outline: none; caret-color: #d4d4d4;
 }
 #cmd::placeholder { color: #555; }
 #cmd:disabled { opacity: 0.4; }
 #cancel-btn {
-  background: transparent;
-  border: 1px solid #555;
-  color: #858585;
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  padding: 2px 8px;
-  cursor: pointer;
-  border-radius: 2px;
-  display: none;
+  background: transparent; border: 1px solid #555; color: #858585;
+  font-family: 'Fira Code', monospace; font-size: 11px;
+  padding: 2px 8px; cursor: pointer; border-radius: 2px; display: none;
 }
 #cancel-btn:hover { color: #f44747; border-color: #f44747; }
 #cancel-btn.show { display: block; }
 
 /* ── Status Bar ── */
 #statusbar {
-  background: #0078d4;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  gap: 16px;
-  font-size: 11px;
-  color: #fff;
-  flex-shrink: 0;
-  justify-content: space-between;
+  background: #0078d4; height: 22px;
+  display: flex; align-items: center; padding: 0 12px; gap: 16px;
+  font-size: 11px; color: #fff; flex-shrink: 0; justify-content: space-between;
 }
-#statusbar .left { display: flex; gap: 16px; align-items: center; }
-#statusbar .right { display: flex; gap: 16px; align-items: center; }
+#statusbar .left  { display: flex; gap: 12px; align-items: center; }
+#statusbar .right { display: flex; gap: 12px; align-items: center; }
 .stat-pill {
   display: flex; align-items: center; gap: 5px;
-  background: rgba(0,0,0,0.2);
-  padding: 1px 8px;
-  border-radius: 2px;
-  font-size: 11px;
+  background: rgba(0,0,0,0.2); padding: 1px 8px; border-radius: 2px; font-size: 11px;
 }
-.stat-pill .bar {
-  width: 50px; height: 4px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.stat-pill .bar-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.4s ease, background 0.4s;
-}
+.stat-pill .bar { width: 44px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; }
+.stat-pill .bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s ease, background 0.4s; }
 
-/* ── 遊戲結束 Modal ── */
+/* ── Gameover Modal ── */
 #gameover-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75); z-index: 500;
+  align-items: center; justify-content: center;
 }
 #gameover-overlay.show { display: flex; }
 #gameover-box {
-  background: #252526;
-  border: 1px solid #454545;
-  border-radius: 6px;
-  padding: 32px 40px;
-  text-align: center;
-  max-width: 480px;
+  background: #252526; border: 1px solid #454545; border-radius: 6px;
+  padding: 32px 40px; text-align: center; max-width: 500px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
 #gameover-title { font-size: 28px; margin-bottom: 16px; }
 #gameover-msg { color: #969696; font-size: 12px; line-height: 1.8; margin-bottom: 24px; }
 #restart-btn {
-  background: #0078d4;
-  border: none;
-  color: #fff;
-  font-family: 'Fira Code', monospace;
-  font-size: 13px;
-  padding: 8px 24px;
-  cursor: pointer;
-  border-radius: 3px;
+  background: #0078d4; border: none; color: #fff;
+  font-family: 'Fira Code', monospace; font-size: 13px;
+  padding: 8px 24px; cursor: pointer; border-radius: 3px;
 }
 #restart-btn:hover { background: #1084d8; }
 
-/* ── 開始畫面（偽裝成 VS Code Welcome）── */
+/* ── Start Screen ── */
 #start-screen {
-  position: fixed; inset: 0;
-  background: #1e1e1e;
-  z-index: 400;
-  display: flex;
-  flex-direction: column;
+  position: fixed; inset: 0; background: #1e1e1e; z-index: 400;
+  display: flex; flex-direction: column;
 }
-#start-tabs {
-  background: #2d2d2d;
-  display: flex;
-  height: 35px;
-  border-bottom: 1px solid #1e1e1e;
-}
+#start-tabs { background: #2d2d2d; display: flex; height: 35px; border-bottom: 1px solid #1e1e1e; }
 .start-tab {
-  display: flex; align-items: center;
-  padding: 0 16px;
-  font-size: 12px;
-  color: #cccccc;
-  background: #1e1e1e;
-  border-top: 1px solid #0078d4;
-  border-right: 1px solid #1e1e1e;
-  gap: 8px;
+  display: flex; align-items: center; padding: 0 16px;
+  font-size: 12px; color: #cccccc; background: #1e1e1e;
+  border-top: 1px solid #0078d4; border-right: 1px solid #1e1e1e; gap: 8px;
 }
-#start-body {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-#start-content {
-  flex: 1;
-  padding: 40px 60px;
-  overflow-y: auto;
-}
-#start-content h1 {
-  font-size: 28px;
-  color: #cccccc;
-  font-weight: 400;
-  margin-bottom: 4px;
-}
-#start-content .sub {
-  color: #858585;
-  font-size: 13px;
-  margin-bottom: 36px;
-}
-#start-content h2 {
-  font-size: 11px;
-  color: #bbbbbb;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
+#start-body { flex: 1; display: flex; overflow: hidden; }
+#start-content { flex: 1; padding: 40px 60px; overflow-y: auto; }
+#start-content h1 { font-size: 28px; color: #cccccc; font-weight: 400; margin-bottom: 4px; }
+#start-content .sub { color: #858585; font-size: 13px; margin-bottom: 36px; }
+#start-content h2 { font-size: 11px; color: #bbbbbb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
 .start-section { margin-bottom: 32px; }
-.start-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 0;
-  color: #3794ff;
-  font-size: 13px;
-  cursor: pointer;
-  text-decoration: none;
-}
+.start-link { display: flex; align-items: center; gap: 10px; padding: 6px 0; color: #3794ff; font-size: 13px; cursor: pointer; }
 .start-link:hover { text-decoration: underline; }
-.start-link .icon { font-size: 16px; }
-
-/* 模型選擇 */
 .model-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: #2d2d2d;
-  border: 1px solid #454545;
-  border-radius: 4px;
+  display: flex; align-items: center; gap: 12px; margin-top: 16px;
+  padding: 12px 16px; background: #2d2d2d; border: 1px solid #454545; border-radius: 4px;
 }
 .model-row label { color: #cccccc; font-size: 12px; white-space: nowrap; }
 #model-select {
-  background: #3c3c3c;
-  border: 1px solid #555;
-  color: #cccccc;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  padding: 5px 10px;
-  flex: 1;
-  cursor: pointer;
-  outline: none;
-  border-radius: 2px;
+  background: #3c3c3c; border: 1px solid #555; color: #cccccc;
+  font-family: 'Fira Code', monospace; font-size: 12px;
+  padding: 5px 10px; flex: 1; cursor: pointer; outline: none; border-radius: 2px;
 }
 #model-select option { background: #3c3c3c; }
 #start-btn {
-  background: #0078d4;
-  border: none;
-  color: #fff;
-  font-family: 'Fira Code', monospace;
-  font-size: 13px;
-  padding: 8px 20px;
-  cursor: pointer;
-  border-radius: 3px;
-  white-space: nowrap;
+  background: #0078d4; border: none; color: #fff;
+  font-family: 'Fira Code', monospace; font-size: 13px;
+  padding: 8px 20px; cursor: pointer; border-radius: 3px; white-space: nowrap;
 }
 #start-btn:hover { background: #1084d8; }
-
 #start-sidebar {
-  width: 260px;
-  background: #252526;
-  border-left: 1px solid #3c3c3c;
-  padding: 24px 20px;
-  flex-shrink: 0;
+  width: 260px; background: #252526; border-left: 1px solid #3c3c3c;
+  padding: 24px 20px; flex-shrink: 0;
 }
-#start-sidebar h2 {
-  font-size: 11px;
-  color: #bbbbbb;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.recent-file {
-  display: flex; flex-direction: column;
-  padding: 4px 0;
-  cursor: pointer;
-}
+#start-sidebar h2 { font-size: 11px; color: #bbbbbb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.recent-file { display: flex; flex-direction: column; padding: 4px 0; cursor: pointer; }
 .recent-file .name { color: #cccccc; font-size: 12px; }
 .recent-file .path { color: #858585; font-size: 11px; }
 </style>
 </head>
 <body>
 
-<!-- 開始畫面（VS Code Welcome 風格）-->
+<!-- 開始畫面 -->
 <div id="start-screen">
-  <div id="start-tabs">
-    <div class="start-tab">🏠 歡迎使用</div>
-  </div>
+  <div id="start-tabs"><div class="start-tab">🏠 歡迎使用</div></div>
   <div id="start-body">
     <div id="start-content">
       <h1>Visual Studio Code</h1>
       <div class="sub">編輯 · 除錯 · 版本控制</div>
-
       <div class="start-section">
         <h2>開始</h2>
-        <a class="start-link"><span class="icon">📄</span> 新增文字檔案</a>
-        <a class="start-link"><span class="icon">📁</span> 開啟資料夾...</a>
-        <a class="start-link"><span class="icon">🔗</span> 複製 Git 存放庫...</a>
+        <a class="start-link"><span>📄</span> 新增文字檔案</a>
+        <a class="start-link"><span>📁</span> 開啟資料夾...</a>
+        <a class="start-link"><span>🔗</span> 複製 Git 存放庫...</a>
       </div>
-
       <div class="start-section">
         <h2>選擇 AI 模型</h2>
         <div class="model-row">
@@ -544,15 +259,21 @@ body {
           <button id="start-btn" onclick="startGame()">▶ 開始上班</button>
         </div>
       </div>
-
       <div class="start-section">
-        <h2>說明</h2>
-        <a class="start-link"><span class="icon">📖</span> 文件</a>
-        <a class="start-link"><span class="icon">⌨️</span> 鍵盤快捷鍵參考</a>
-        <a class="start-link"><span class="icon">🎓</span> 互動式演練場</a>
+        <h2>遊戲說明</h2>
+        <div style="color:#858585;font-size:12px;line-height:2">
+          ⚡ <span style="color:#cccccc">精力</span>　　做事消耗，摸魚回復，歸零直接擺爛<br>
+          📊 <span style="color:#cccccc">KPI進度</span>　下班前需達 60%，否則被約談<br>
+          🎭 <span style="color:#cccccc">偽裝值</span>　　太低主管會盯上你，需要裝忙維持<br>
+          <br>
+          <span style="color:#f44747">認真工作</span> → KPI↑ 精力↓↓ 偽裝值↓（你被發現有空）<br>
+          <span style="color:#4ec9b0">摸魚</span> → 精力↑ KPI不動 偽裝值看行為<br>
+          <span style="color:#dcdcaa">裝忙</span> → 偽裝值↑ 精力微耗 KPI不動<br>
+          <br>
+          🏆 下班時 KPI ≥ 60% 且沒被炒
+        </div>
       </div>
     </div>
-
     <div id="start-sidebar">
       <h2>最近開啟</h2>
       <div class="recent-file"><span class="name">office-system</span><span class="path">~/projects/office-system</span></div>
@@ -564,7 +285,7 @@ body {
   </div>
 </div>
 
-<!-- 遊戲結束 -->
+<!-- Gameover -->
 <div id="gameover-overlay">
   <div id="gameover-box">
     <div id="gameover-title"></div>
@@ -576,27 +297,19 @@ body {
 <!-- VS Code 主介面 -->
 <div id="titlebar">
   <div class="traffic">
-    <span class="t-red"></span>
-    <span class="t-yellow"></span>
-    <span class="t-green"></span>
+    <span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span>
   </div>
   <div class="title-center">main.py — office-system — Visual Studio Code</div>
   <div class="right" id="model-display"></div>
 </div>
-
 <div id="menubar">
-  <div class="menu-item">檔案</div>
-  <div class="menu-item">編輯</div>
-  <div class="menu-item">選取範圍</div>
-  <div class="menu-item">檢視</div>
-  <div class="menu-item">移至</div>
-  <div class="menu-item">執行</div>
-  <div class="menu-item">終端機</div>
-  <div class="menu-item">說明</div>
+  <div class="menu-item">檔案</div><div class="menu-item">編輯</div>
+  <div class="menu-item">選取範圍</div><div class="menu-item">檢視</div>
+  <div class="menu-item">移至</div><div class="menu-item">執行</div>
+  <div class="menu-item">終端機</div><div class="menu-item">說明</div>
 </div>
 
 <div id="main">
-  <!-- Activity Bar -->
   <div id="activitybar">
     <div class="act-icon active">📋</div>
     <div class="act-icon">🔍</div>
@@ -605,7 +318,6 @@ body {
     <div class="act-icon">🧩</div>
   </div>
 
-  <!-- Sidebar -->
   <div id="sidebar">
     <div id="sidebar-title">檔案總管</div>
     <div class="file-tree">
@@ -621,87 +333,64 @@ body {
       <div class="tree-file"><span class="icon-md">📝</span> README.md</div>
       <div class="tree-file"><span class="icon-json">{ }</span> package.json</div>
       <div class="tree-file"><span class="icon-txt">📄</span> requirements.txt</div>
-      <div class="tree-file"><span class="icon-json">{ }</span> .env</div>
     </div>
   </div>
 
-  <!-- Editor -->
   <div id="editor-area">
     <div id="tabs">
-      <div class="tab active">
-        <span class="icon-py">🐍</span> main.py
-        <span class="tab-close">✕</span>
-      </div>
-      <div class="tab">
-        <span class="icon-py">🐍</span> utils.py
-        <span class="tab-close">✕</span>
-      </div>
-      <div class="tab">
-        <span class="icon-json">{ }</span> config.json
-        <span class="tab-close">✕</span>
-      </div>
+      <div class="tab active"><span class="icon-py">🐍</span> main.py <span class="tab-close">✕</span></div>
+      <div class="tab"><span class="icon-py">🐍</span> utils.py <span class="tab-close">✕</span></div>
+      <div class="tab"><span class="icon-json">{ }</span> config.json <span class="tab-close">✕</span></div>
     </div>
-
     <div id="editor-wrap">
-      <div id="gutter" id="gutter"></div>
+      <div id="gutter"></div>
       <div id="editor-content">
-        <!-- Python code 偽裝背景 -->
         <span class="code-line"><span class="cmt"># office-system/src/main.py</span></span>
         <span class="code-line"><span class="cmt"># Author: Engineer | Last modified: today</span></span>
         <span class="code-line"></span>
-        <span class="code-line"><span class="kw">import</span> <span class="var">os</span></span>
-        <span class="code-line"><span class="kw">import</span> <span class="var">sys</span></span>
-        <span class="code-line"><span class="kw">import</span> <span class="var">logging</span></span>
-        <span class="code-line"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="cls">Optional</span><span class="pun">,</span> <span class="cls">List</span><span class="pun">,</span> <span class="cls">Dict</span></span>
+        <span class="code-line"><span class="kw">import</span> <span class="var">os</span>, <span class="var">sys</span>, <span class="var">logging</span></span>
+        <span class="code-line"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="cls">Optional</span>, <span class="cls">List</span>, <span class="cls">Dict</span></span>
         <span class="code-line"><span class="kw">from</span> <span class="var">datetime</span> <span class="kw">import</span> <span class="var">datetime</span></span>
         <span class="code-line"></span>
-        <span class="code-line"><span class="var">logger</span> <span class="op">=</span> <span class="var">logging</span><span class="pun">.</span><span class="fn">getLogger</span><span class="pun">(</span><span class="var">__name__</span><span class="pun">)</span></span>
+        <span class="code-line"><span class="var">logger</span> <span class="op">=</span> <span class="var">logging</span>.<span class="fn">getLogger</span>(<span class="var">__name__</span>)</span>
         <span class="code-line"></span>
-        <span class="code-line"></span>
-        <span class="code-line"><span class="kw">class</span> <span class="cls">OfficeSystem</span><span class="pun">:</span></span>
+        <span class="code-line"><span class="kw">class</span> <span class="cls">OfficeSystem</span>:</span>
         <span class="code-line">    <span class="str">"""Main office management system."""</span></span>
         <span class="code-line"></span>
-        <span class="code-line">    <span class="kw">def</span> <span class="fn">__init__</span><span class="pun">(</span><span class="var">self</span><span class="pun">,</span> <span class="var">config_path</span><span class="pun">:</span> <span class="cls">str</span> <span class="op">=</span> <span class="str">"config.json"</span><span class="pun">):</span></span>
-        <span class="code-line">        <span class="var">self</span><span class="pun">.</span><span class="var">config</span> <span class="op">=</span> <span class="var">self</span><span class="pun">.</span><span class="fn">_load_config</span><span class="pun">(</span><span class="var">config_path</span><span class="pun">)</span></span>
-        <span class="code-line">        <span class="var">self</span><span class="pun">.</span><span class="var">db</span> <span class="op">=</span> <span class="cls">None</span></span>
-        <span class="code-line">        <span class="var">self</span><span class="pun">.</span><span class="var">started_at</span> <span class="op">=</span> <span class="var">datetime</span><span class="pun">.</span><span class="fn">now</span><span class="pun">()</span></span>
+        <span class="code-line">    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, <span class="var">config_path</span>: <span class="cls">str</span> = <span class="str">"config.json"</span>):</span>
+        <span class="code-line">        <span class="var">self</span>.<span class="var">config</span> = <span class="var">self</span>.<span class="fn">_load_config</span>(<span class="var">config_path</span>)</span>
+        <span class="code-line">        <span class="var">self</span>.<span class="var">db</span> = <span class="cls">None</span></span>
+        <span class="code-line">        <span class="var">self</span>.<span class="var">started_at</span> = <span class="var">datetime</span>.<span class="fn">now</span>()</span>
         <span class="code-line"></span>
-        <span class="code-line">    <span class="kw">def</span> <span class="fn">_load_config</span><span class="pun">(</span><span class="var">self</span><span class="pun">,</span> <span class="var">path</span><span class="pun">:</span> <span class="cls">str</span><span class="pun">)</span> <span class="op">-></span> <span class="cls">Dict</span><span class="pun">:</span></span>
-        <span class="code-line">        <span class="str">"""Load configuration from JSON file."""</span></span>
-        <span class="code-line">        <span class="kw">try</span><span class="pun">:</span></span>
-        <span class="code-line">            <span class="kw">with</span> <span class="fn">open</span><span class="pun">(</span><span class="var">path</span><span class="pun">,</span> <span class="str">'r'</span><span class="pun">)</span> <span class="kw">as</span> <span class="var">f</span><span class="pun">:</span></span>
-        <span class="code-line">                <span class="kw">return</span> <span class="var">json</span><span class="pun">.</span><span class="fn">load</span><span class="pun">(</span><span class="var">f</span><span class="pun">)</span></span>
-        <span class="code-line">        <span class="kw">except</span> <span class="cls">FileNotFoundError</span><span class="pun">:</span></span>
-        <span class="code-line">            <span class="var">logger</span><span class="pun">.</span><span class="fn">warning</span><span class="pun">(</span><span class="str">"Config not found, using defaults"</span><span class="pun">)</span></span>
-        <span class="code-line">            <span class="kw">return</span> <span class="pun">{}</span></span>
+        <span class="code-line">    <span class="kw">def</span> <span class="fn">_load_config</span>(<span class="var">self</span>, <span class="var">path</span>: <span class="cls">str</span>) -> <span class="cls">Dict</span>:</span>
+        <span class="code-line">        <span class="kw">try</span>:</span>
+        <span class="code-line">            <span class="kw">with</span> <span class="fn">open</span>(<span class="var">path</span>, <span class="str">'r'</span>) <span class="kw">as</span> <span class="var">f</span>:</span>
+        <span class="code-line">                <span class="kw">return</span> <span class="var">json</span>.<span class="fn">load</span>(<span class="var">f</span>)</span>
+        <span class="code-line">        <span class="kw">except</span> <span class="cls">FileNotFoundError</span>:</span>
+        <span class="code-line">            <span class="var">logger</span>.<span class="fn">warning</span>(<span class="str">"Config not found, using defaults"</span>)</span>
+        <span class="code-line">            <span class="kw">return</span> {}</span>
         <span class="code-line"></span>
-        <span class="code-line">    <span class="kw">def</span> <span class="fn">initialize</span><span class="pun">(</span><span class="var">self</span><span class="pun">)</span> <span class="op">-></span> <span class="cls">bool</span><span class="pun">:</span></span>
-        <span class="code-line">        <span class="str">"""Initialize all system components."""</span></span>
-        <span class="code-line">        <span class="var">logger</span><span class="pun">.</span><span class="fn">info</span><span class="pun">(</span><span class="str">"Initializing office system..."</span><span class="pun">)</span></span>
-        <span class="code-line">        <span class="var">self</span><span class="pun">.</span><span class="var">db</span> <span class="op">=</span> <span class="fn">connect_database</span><span class="pun">(</span><span class="var">self</span><span class="pun">.</span><span class="var">config</span><span class="pun">)</span></span>
-        <span class="code-line">        <span class="kw">return</span> <span class="var">self</span><span class="pun">.</span><span class="var">db</span> <span class="kw">is not</span> <span class="cls">None</span></span>
+        <span class="code-line">    <span class="kw">def</span> <span class="fn">initialize</span>(<span class="var">self</span>) -> <span class="cls">bool</span>:</span>
+        <span class="code-line">        <span class="var">logger</span>.<span class="fn">info</span>(<span class="str">"Initializing office system..."</span>)</span>
+        <span class="code-line">        <span class="var">self</span>.<span class="var">db</span> = <span class="fn">connect_database</span>(<span class="var">self</span>.<span class="var">config</span>)</span>
+        <span class="code-line">        <span class="kw">return</span> <span class="var">self</span>.<span class="var">db</span> <span class="kw">is not</span> <span class="cls">None</span></span>
         <span class="code-line"></span>
-        <span class="code-line">    <span class="kw">def</span> <span class="fn">run</span><span class="pun">(</span><span class="var">self</span><span class="pun">)</span> <span class="op">-></span> <span class="cls">None</span><span class="pun">:</span></span>
-        <span class="code-line">        <span class="str">"""Main execution loop."""</span></span>
-        <span class="code-line">        <span class="kw">if not</span> <span class="var">self</span><span class="pun">.</span><span class="fn">initialize</span><span class="pun">():</span></span>
-        <span class="code-line">            <span class="var">logger</span><span class="pun">.</span><span class="fn">error</span><span class="pun">(</span><span class="str">"Failed to initialize system"</span><span class="pun">)</span></span>
-        <span class="code-line">            <span class="var">sys</span><span class="pun">.</span><span class="fn">exit</span><span class="pun">(</span><span class="num">1</span><span class="pun">)</span></span>
-        <span class="code-line"></span>
-        <span class="code-line">        <span class="kw">while</span> <span class="cls">True</span><span class="pun">:</span></span>
-        <span class="code-line">            <span class="kw">try</span><span class="pun">:</span></span>
-        <span class="code-line">                <span class="var">self</span><span class="pun">.</span><span class="fn">process_queue</span><span class="pun">()</span></span>
-        <span class="code-line">                <span class="var">self</span><span class="pun">.</span><span class="fn">sync_database</span><span class="pun">()</span></span>
-        <span class="code-line">            <span class="kw">except</span> <span class="cls">KeyboardInterrupt</span><span class="pun">:</span></span>
+        <span class="code-line">    <span class="kw">def</span> <span class="fn">run</span>(<span class="var">self</span>) -> <span class="cls">None</span>:</span>
+        <span class="code-line">        <span class="kw">if not</span> <span class="var">self</span>.<span class="fn">initialize</span>():</span>
+        <span class="code-line">            <span class="var">sys</span>.<span class="fn">exit</span>(<span class="num">1</span>)</span>
+        <span class="code-line">        <span class="kw">while</span> <span class="cls">True</span>:</span>
+        <span class="code-line">            <span class="kw">try</span>:</span>
+        <span class="code-line">                <span class="var">self</span>.<span class="fn">process_queue</span>()</span>
+        <span class="code-line">                <span class="var">self</span>.<span class="fn">sync_database</span>()</span>
+        <span class="code-line">            <span class="kw">except</span> <span class="cls">KeyboardInterrupt</span>:</span>
         <span class="code-line">                <span class="kw">break</span></span>
         <span class="code-line"></span>
-        <span class="code-line"></span>
-        <span class="code-line"><span class="kw">if</span> <span class="var">__name__</span> <span class="op">==</span> <span class="str">"__main__"</span><span class="pun">:</span></span>
-        <span class="code-line">    <span class="var">app</span> <span class="op">=</span> <span class="cls">OfficeSystem</span><span class="pun">()</span></span>
-        <span class="code-line">    <span class="var">app</span><span class="pun">.</span><span class="fn">run</span><span class="pun">()</span></span>
+        <span class="code-line"><span class="kw">if</span> <span class="var">__name__</span> <span class="op">==</span> <span class="str">"__main__"</span>:</span>
+        <span class="code-line">    <span class="var">app</span> = <span class="cls">OfficeSystem</span>()</span>
+        <span class="code-line">    <span class="var">app</span>.<span class="fn">run</span>()</span>
       </div>
     </div>
 
-    <!-- Terminal Panel（遊戲在這裡）-->
     <div id="terminal-panel">
       <div id="terminal-tabs">
         <div class="term-tab active">終端機</div>
@@ -720,21 +409,19 @@ body {
   </div>
 </div>
 
-<!-- Status Bar -->
 <div id="statusbar">
   <div class="left">
     <span>⎇ main</span>
     <span>⚠ 0　⊗ 0</span>
-    <div class="stat-pill">☕ <div class="bar"><div class="bar-fill" id="bar-coffee" style="width:80%;background:#8B6914"></div></div> <span id="val-coffee">80</span></div>
-    <div class="stat-pill">💼 <div class="bar"><div class="bar-fill" id="bar-busy" style="width:60%;background:#4caf50"></div></div> <span id="val-busy">60</span></div>
-    <div class="stat-pill">👁 <div class="bar"><div class="bar-fill" id="bar-risk" style="width:20%;background:#4caf50"></div></div> <span id="val-risk">20</span></div>
+    <div class="stat-pill">⚡<div class="bar"><div class="bar-fill" id="bar-energy" style="width:80%;background:#4caf50"></div></div><span id="val-energy">80</span></div>
+    <div class="stat-pill">📊<div class="bar"><div class="bar-fill" id="bar-kpi" style="width:0%;background:#ff9800"></div></div><span id="val-kpi">0%</span></div>
+    <div class="stat-pill">🎭<div class="bar"><div class="bar-fill" id="bar-disguise" style="width:70%;background:#4caf50"></div></div><span id="val-disguise">70</span></div>
   </div>
   <div class="right">
     <span id="game-clock">09:00</span>
     <span>Python 3.11.0</span>
     <span>UTF-8</span>
     <span>Ln 47, Col 1</span>
-    <span>spaces: 4</span>
   </div>
 </div>
 
@@ -742,7 +429,9 @@ body {
 const BASE = "https://spring-art-db47.twlin628.workers.dev";
 
 let state = {
-  coffee: 80, busy: 60, risk: 20,
+  energy: 80,      // 精力 0~100，歸零擺爛
+  kpi: 0,          // KPI進度 0~100，下班需>=60
+  disguise: 70,    // 偽裝值 0~100，歸零被發現
   gameTime: 9 * 60,
   model: "qwen3.5:9b",
   history: [],
@@ -754,42 +443,57 @@ let abortController = null;
 
 const SYSTEM_PROMPT = `你是一個辦公室生存遊戲的旁白與裁判。風格：幽默諷刺，充滿台灣辦公室文化感。
 
-世界觀：玩家是一名資深工程師，上班時間要盡量摸魚、不做事，但讓所有人覺得他超級忙碌專業。他需要撐過一整天（09:00到18:00）。
+世界觀：玩家是一名資深工程師，目標是在下班前（18:00）把KPI做到60%以上，但同時要盡量保留精力、適時摸魚，並維持偽裝讓主管覺得你很忙。
 
-數值系統：
-- 咖啡存量(0~100)：體力來源，歸零就會在位置上打瞌睡被抓
-- 裝忙指數(0~100)：越高越安全，太低主管會質疑你在幹嘛
-- 被發現率(0~100)：達到100就被抓包，遊戲結束
+【三個核心數值】
+- 精力(0~100)：做正事大量消耗，摸魚回復，歸零就精神渙散被抓
+- KPI進度(0~100)：做正事才會上升，下班時需>=60才算過關
+- 偽裝值(0~100)：裝忙維持，太認真反而下降（因為大家發現你有空），歸零主管來盯
 
-你的職責：
-1. 根據玩家行動，生動描述發生的事（繁體中文，2~3句，帶點諷刺幽默）
-2. 判斷數值變化（每次變化控制在-20到+20之間）
-3. 每3~5回合隨機觸發突發事件（主管巡邏、緊急會議、同事告密、客戶電話等）
-4. 當被發現率>=100時設gameover:true，輸出被抓的羞恥結局
-5. 當turnCount>=15時可以考慮觸發win條件
+【行為對數值的影響規則 - 請嚴格遵守】
+認真工作、解決問題、開會積極發言：
+  → KPI +10~+20, 精力 -15~-25, 偽裝值 -5~-15（你被發現有空閒）
 
-嚴格只回傳JSON，不要任何前綴或說明：
+摸魚（看影片、滑手機、發呆、聊天）：
+  → 精力 +10~+20, KPI不動, 偽裝值 -10~-20（容易被抓）
+
+裝忙（假裝在看code、開空白文件、敲鍵盤沒在做事）：
+  → 偽裝值 +10~+20, 精力 -5, KPI不動
+
+聰明的行為（趁主管不在時偷工作、用工具加速KPI）：
+  → KPI +5~+15, 精力 -5~-10, 偽裝值維持
+
+喝咖啡、去茶水間、上廁所：
+  → 精力 +10~+15, 偽裝值微降
+
+【失敗條件】
+- 精力歸零：精神渙散，主管發現你狀態不對
+- 偽裝值歸零：主管直接走來問你在幹嘛
+- 下班時KPI<60：被約談績效檢討
+
+【每3~5回合觸發一個突發事件】
+例如：主管巡邏、緊急需求插單（KPI要求暫時提高）、同事告密、客戶電話、全體會議
+
+嚴格只回傳JSON，不要任何前綴：
 {
-  "narration": "場景描述（2~3句）",
-  "coffee_delta": 數字,
-  "busy_delta": 數字,
-  "risk_delta": 數字,
-  "event": "突發事件描述或null",
+  "narration": "場景描述2~3句，幽默諷刺",
+  "energy_delta": 數字,
+  "kpi_delta": 數字,
+  "disguise_delta": 數字,
+  "event": "突發事件或null",
   "gameover": false,
-  "gameover_msg": "被抓的羞恥故事或null",
+  "gameover_reason": "失敗原因或null",
+  "gameover_msg": "結局故事或null",
   "win": false,
-  "win_msg": "成功摸魚一整天的爽快結局或null",
-  "time_advance": 分鐘數字(15到45之間)
+  "win_msg": "成功結局或null",
+  "time_advance": 15到45之間的數字
 }`;
 
-// 產生行號
 function buildGutter() {
   const lines = document.querySelectorAll('.code-line').length;
   const g = document.getElementById('gutter');
   g.innerHTML = '';
-  for (let i = 1; i <= Math.max(lines, 50); i++) {
-    g.innerHTML += i + '\n';
-  }
+  for (let i = 1; i <= Math.max(lines, 50); i++) g.innerHTML += i + '\n';
 }
 
 document.getElementById('cmd').addEventListener('keydown', e => {
@@ -804,17 +508,16 @@ function startGame() {
   updateStats();
   updateClock();
 
-  printT('$ python main.py --mode=work --verbose', 'sys');
-  sleep(300).then(() => printT('系統初始化中...', 'sys'));
-  sleep(600).then(() => printT('載入辦公室環境模組...', 'sys'));
-  sleep(900).then(() => printT('WARNING: KPI targets loaded. Monitoring active.', 'sys'));
-  sleep(1200).then(() => {
+  printT('$ python main.py --mode=work', 'sys');
+  sleep(300).then(() => printT('載入辦公室環境...', 'sys'));
+  sleep(600).then(() => printT('WARNING: KPI target = 60%. Deadline: 18:00', 'sys'));
+  sleep(900).then(() => {
     printT('─────────────────────────────────────', 'sep');
     printT('你拎著超商早餐走進辦公室，坐到你那台跑了五年的工作站前。', 'ai');
-    printT('螢幕上還開著昨天沒關的 Jira，800 個未讀通知在對你眨眼。', 'ai');
-    printT('今天的目標：讓時針走到 18:00，同時讓大家覺得你超級忙。', 'ai');
+    printT('Jira 上有 12 張票在等你，但你的精力只夠做其中幾張。', 'ai');
+    printT('今天的藝術：在完成 KPI 的同時，還要摸夠多的魚。', 'ai');
     printT('─────────────────────────────────────', 'sep');
-    printT('提示：在下方終端機輸入你想做的事，AI 即時判斷後果', 'info');
+    printT('⚡精力要留著 📊KPI要到60% 🎭偽裝值不能歸零', 'info');
     printT('─────────────────────────────────────', 'sep');
     enableInput();
   });
@@ -830,10 +533,10 @@ async function sendAction() {
   printT(action, 'user');
 
   const userMsg = `當前狀態：
-- 咖啡存量：${state.coffee}/100
-- 裝忙指數：${state.busy}/100
-- 被發現率：${state.risk}/100
-- 遊戲時間：${formatTime(state.gameTime)}
+- 精力：${state.energy}/100
+- KPI進度：${state.kpi}/100（目標60）
+- 偽裝值：${state.disguise}/100
+- 遊戲時間：${formatTime(state.gameTime)}（18:00下班）
 - 回合數：${state.turnCount}
 
 玩家行動：「${action}」`;
@@ -860,11 +563,11 @@ async function sendAction() {
     let parsed;
     try {
       const clean = raw.replace(/```json|```/g, '').trim();
-      const start = clean.indexOf('{');
-      const end = clean.lastIndexOf('}');
-      parsed = JSON.parse(clean.slice(start, end + 1));
+      const s = clean.indexOf('{'), e = clean.lastIndexOf('}');
+      parsed = JSON.parse(clean.slice(s, e + 1));
     } catch {
       printT('ERROR: AI response parse failed. Try again.', 'event');
+      state.history.pop();
       enableInput();
       return;
     }
@@ -872,9 +575,9 @@ async function sendAction() {
     state.history.push({ role: "assistant", content: raw });
     state.turnCount++;
 
-    state.coffee = clamp(state.coffee + (parsed.coffee_delta || 0));
-    state.busy   = clamp(state.busy   + (parsed.busy_delta   || 0));
-    state.risk   = clamp(state.risk   + (parsed.risk_delta   || 0));
+    state.energy   = clamp(state.energy   + (parsed.energy_delta   || 0));
+    state.kpi      = clamp(state.kpi      + (parsed.kpi_delta      || 0));
+    state.disguise = clamp(state.disguise + (parsed.disguise_delta || 0));
     state.gameTime += (parsed.time_advance || 20);
     updateStats();
     updateClock();
@@ -889,24 +592,41 @@ async function sendAction() {
 
     await sleep(200);
     const deltas = [];
-    if (parsed.coffee_delta) deltas.push(`coffee${parsed.coffee_delta > 0 ? '+' : ''}${parsed.coffee_delta}`);
-    if (parsed.busy_delta)   deltas.push(`busy${parsed.busy_delta > 0 ? '+' : ''}${parsed.busy_delta}`);
-    if (parsed.risk_delta)   deltas.push(`risk${parsed.risk_delta > 0 ? '+' : ''}${parsed.risk_delta}`);
+    if (parsed.energy_delta)   deltas.push(`energy${parsed.energy_delta > 0 ? '+' : ''}${parsed.energy_delta}`);
+    if (parsed.kpi_delta)      deltas.push(`KPI${parsed.kpi_delta > 0 ? '+' : ''}${parsed.kpi_delta}`);
+    if (parsed.disguise_delta) deltas.push(`disguise${parsed.disguise_delta > 0 ? '+' : ''}${parsed.disguise_delta}`);
     if (deltas.length) printT('[' + deltas.join(' | ') + ']', 'info');
 
-    if (parsed.gameover || state.risk >= 100) {
+    // 失敗條件
+    if (parsed.gameover) {
       await sleep(600);
-      showGameover(false, parsed.gameover_msg || '你的摸魚行為被主管當場抓包，全辦公室都在看...');
+      showGameover(false, parsed.gameover_msg || '遊戲結束。');
       return;
     }
-    if (parsed.win || state.gameTime >= 18 * 60) {
+    if (state.energy <= 0) {
       await sleep(600);
-      showGameover(true, parsed.win_msg || '時鐘指向 18:00，你站起來伸了個大懶腰。又是成功摸魚的一天。');
+      showGameover(false, '精力耗盡，你在位置上魂不守舍，主管走過來問你還好嗎...');
       return;
     }
-    if (state.coffee <= 0) {
+    if (state.disguise <= 0) {
       await sleep(600);
-      showGameover(false, '咖啡耗盡，你在位置上沉沉睡去，主管的腳步聲在夢中越來越近...');
+      showGameover(false, '偽裝值歸零，主管直接走到你面前：「你今天到底在做什麼？」');
+      return;
+    }
+
+    // 下班判斷
+    if (state.gameTime >= 18 * 60) {
+      await sleep(600);
+      if (state.kpi >= 60) {
+        showGameover(true, parsed.win_msg || `你在 ${formatTime(state.gameTime)} 準時下班，KPI ${state.kpi}%，完美的一天。`);
+      } else {
+        showGameover(false, `下班了，但你的 KPI 只有 ${state.kpi}%，主管叫你留下來開績效檢討會...`);
+      }
+      return;
+    }
+    if (parsed.win) {
+      await sleep(600);
+      showGameover(true, parsed.win_msg || '完美收工！');
       return;
     }
 
@@ -917,7 +637,7 @@ async function sendAction() {
       printT('[ 已取消請求 ]', 'info');
       state.history.pop();
     } else if (e.message.includes('524') || e.message.includes('timeout')) {
-      printT('ERROR: AI timeout — 模型回應太慢，建議改用 qwen3.5:9b', 'event');
+      printT('ERROR: timeout — 建議改用 qwen3.5:9b', 'event');
       state.history.pop();
     } else {
       printT('ERROR: ' + e.message, 'event');
@@ -931,34 +651,26 @@ async function sendAction() {
 }
 
 function cancelAction() {
-  if (abortController) {
-    abortController.abort();
-  }
+  if (abortController) abortController.abort();
 }
 
 function showGameover(isWin, msg) {
   state.isOver = true;
   const title = document.getElementById('gameover-title');
   const msgEl = document.getElementById('gameover-msg');
-  if (isWin) {
-    title.textContent = '🏆 成功摸魚！';
-    title.style.color = '#4ec9b0';
-  } else {
-    title.textContent = '💀 被抓包了';
-    title.style.color = '#f44747';
-  }
-  msgEl.textContent = msg;
+  title.textContent = isWin ? '🏆 完美收工！' : '💀 遊戲結束';
+  title.style.color  = isWin ? '#4ec9b0' : '#f44747';
+  msgEl.textContent  = msg;
   document.getElementById('gameover-overlay').classList.add('show');
 }
 
 function restartGame() {
-  state = { coffee:80, busy:60, risk:20, gameTime:9*60, model:state.model, history:[], isOver:false, turnCount:0 };
+  state = { energy:80, kpi:0, disguise:70, gameTime:9*60, model:state.model, history:[], isOver:false, turnCount:0 };
   document.getElementById('terminal-output').innerHTML = '';
   document.getElementById('gameover-overlay').classList.remove('show');
   document.getElementById('start-screen').style.display = 'flex';
 }
 
-// Terminal 工具
 function printT(text, cls) {
   const out = document.getElementById('terminal-output');
   const span = document.createElement('span');
@@ -987,18 +699,19 @@ async function typeT(text, cls) {
 }
 
 function updateStats() {
-  const coffeeColor = '#8B6914';
-  const busyColor   = state.busy < 30 ? '#f44747' : '#4caf50';
-  const riskColor   = state.risk > 70 ? '#f44747' : state.risk > 40 ? '#ff9800' : '#4caf50';
-  setBar('coffee', state.coffee, coffeeColor);
-  setBar('busy',   state.busy,   busyColor);
-  setBar('risk',   state.risk,   riskColor);
+  const ec = state.energy   < 30 ? '#f44747' : state.energy   < 50 ? '#ff9800' : '#4caf50';
+  const kc = state.kpi      < 40 ? '#f44747' : state.kpi      < 60 ? '#ff9800' : '#4caf50';
+  const dc = state.disguise < 30 ? '#f44747' : state.disguise < 50 ? '#ff9800' : '#4caf50';
+  setBar('energy',   state.energy,   ec);
+  setBar('kpi',      state.kpi,      kc);
+  setBar('disguise', state.disguise, dc);
+  document.getElementById('val-kpi').textContent = state.kpi + '%';
 }
 
 function setBar(name, val, color) {
   document.getElementById('bar-' + name).style.width = val + '%';
   document.getElementById('bar-' + name).style.background = color;
-  document.getElementById('val-' + name).textContent = val;
+  if (name !== 'kpi') document.getElementById('val-' + name).textContent = val;
 }
 
 function updateClock() {
@@ -1006,8 +719,7 @@ function updateClock() {
 }
 
 function formatTime(mins) {
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
+  const h = Math.floor(mins / 60), m = mins % 60;
   return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
 }
 
@@ -1017,9 +729,7 @@ function enableInput() {
   document.getElementById('cmd').disabled = false;
   document.getElementById('cmd').focus();
 }
-function disableInput() {
-  document.getElementById('cmd').disabled = true;
-}
+function disableInput() { document.getElementById('cmd').disabled = true; }
 </script>
 </body>
 </html>
