@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上班摸魚生存指南 v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff41;
+    --green-dim: #00aa2b;
+    --green-dark: #003d0f;
+    --amber: #ffb000;
+    --red: #ff3131;
+    --bg: #0a0a0a;
+    --scanline: rgba(0,255,65,0.03);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    min-height: 100vh;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  /* 自訂游標 */
+  .cursor-dot {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px var(--green);
+    transition: transform 0.05s;
+  }
+
+  /* CRT 掃描線效果 */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--scanline) 2px,
+      var(--scanline) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* CRT 邊緣暗角 */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  #app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  /* ── 標題列 ── */
+  #titlebar {
+    border: 1px solid var(--green-dim);
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    background: rgba(0,255,65,0.04);
+    flex-shrink: 0;
+  }
+  #titlebar .title { font-family: 'VT323', monospace; font-size: 22px; letter-spacing: 2px; }
+  #titlebar .right { font-size: 12px; color: var(--green-dim); }
+  #clock { color: var(--amber); }
+
+  /* ── 狀態列 ── */
+  #statusbar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .stat-box {
+    border: 1px solid var(--green-dim);
+    padding: 6px 10px;
+    background: rgba(0,255,65,0.03);
+  }
+  .stat-label { font-size: 11px; color: var(--green-dim); margin-bottom: 4px; }
+  .stat-bar { height: 8px; background: #111; border: 1px solid var(--green-dark); position: relative; overflow: hidden; }
+  .stat-fill {
+    height: 100%;
+    transition: width 0.5s ease, background 0.5s;
+    position: relative;
+  }
+  .stat-fill::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+  .stat-val { font-size: 11px; margin-top: 3px; text-align: right; }
+
+  /* ── 主要終端機區域 ── */
+  #terminal-wrap {
+    flex: 1;
+    border: 1px solid var(--green-dim);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(0,255,65,0.02);
+    min-height: 0;
+  }
+
+  #output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    line-height: 1.7;
+    font-size: 13px;
+  }
+  #output::-webkit-scrollbar { width: 4px; }
+  #output::-webkit-scrollbar-track { background: #000; }
+  #output::-webkit-scrollbar-thumb { background: var(--green-dim); }
+
+  .line { margin-bottom: 2px; }
+  .line.sys { color: var(--green-dim); }
+  .line.user { color: var(--amber); }
+  .line.user::before { content: '> '; }
+  .line.ai { color: var(--green); }
+  .line.event { color: var(--red); font-weight: bold; }
+  .line.event::before { content: '⚠ '; }
+  .line.win { color: var(--amber); }
+  .line.sep { color: #1a4a1a; }
+  .line.info { color: #007a1f; font-size: 12px; }
+
+  /* 打字機游標 */
+  .typing::after {
+    content: '█';
+    animation: blink 0.8s step-end infinite;
+  }
+  @keyframes blink { 50%{opacity:0} }
+
+  /* ── 輸入列 ── */
+  #input-row {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--green-dim);
+    padding: 8px 12px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  #prompt-label { color: var(--amber); white-space: nowrap; font-size: 13px; }
+  #cmd {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    caret-color: var(--green);
+  }
+  #cmd::placeholder { color: #1a4a1a; }
+  #cmd:disabled { opacity: 0.4; }
+  #send-btn {
+    background: transparent;
+    border: 1px solid var(--green-dim);
+    color: var(--green-dim);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  #send-btn:hover:not(:disabled) { background: rgba(0,255,65,0.1); color: var(--green); border-color: var(--green); }
+  #send-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* ── 開始畫面 ── */
+  #start-screen {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    gap: 24px;
+  }
+  #start-screen .ascii {
+    font-family: 'VT323', monospace;
+    font-size: clamp(28px, 4vw, 52px);
+    color: var(--green);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 20px var(--green);
+    letter-spacing: 3px;
+    animation: flicker 4s infinite;
+  }
+  @keyframes flicker {
+    0%,95%,100%{opacity:1}
+    96%{opacity:0.7}
+    97%{opacity:1}
+    98%{opacity:0.5}
+    99%{opacity:1}
+  }
+  .start-sub {
+    color: var(--green-dim);
+    font-size: 13px;
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.8;
+  }
+  .model-select-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+  }
+  .model-select-wrap label { font-size: 12px; color: var(--green-dim); }
+  #model-select {
+    background: #0a0a0a;
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 8px 10px;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+  }
+  #model-select option { background: #0a0a0a; }
+  #start-btn {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-family: 'VT323', monospace;
+    font-size: 26px;
+    padding: 10px 48px;
+    cursor: pointer;
+    letter-spacing: 3px;
+    transition: all 0.2s;
+    text-shadow: 0 0 10px var(--green);
+    box-shadow: 0 0 10px rgba(0,255,65,0.2);
+  }
+  #start-btn:hover {
+    background: rgba(0,255,65,0.1);
+    box-shadow: 0 0 20px rgba(0,255,65,0.4);
+  }
+  .version { font-size: 11px; color: #1a4a1a; }
+
+  /* ── 遊戲結束覆蓋 ── */
+  #gameover-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #gameover-overlay.show { display: flex; }
+  #gameover-title {
+    font-family: 'VT323', monospace;
+    font-size: 64px;
+    text-align: center;
+    animation: flicker 2s infinite;
+  }
+  #gameover-msg { font-size: 13px; color: var(--green-dim); text-align: center; max-width: 400px; line-height: 1.8; }
+  #restart-btn {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    padding: 8px 36px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+  }
+  #restart-btn:hover { background: rgba(0,255,65,0.1); }
+
+  /* RWD */
+  @media (max-width: 600px) {
+    body { font-size: 12px; }
+    #statusbar { grid-template-columns: 1fr; }
+    #start-screen .ascii { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursor"></div>
+
+<!-- 開始畫面 -->
+<div id="start-screen">
+  <div class="ascii">
+    上班摸魚生存指南<br>
+    <span style="font-size:0.55em;color:var(--green-dim)">OFFICE SLACKER SURVIVAL GUIDE</span>
+  </div>
+  <div class="start-sub">
+    你是一名資深工程師。<br>
+    目標：<span style="color:var(--amber)">撐過一整天，0行有意義的程式碼</span>。<br>
+    但讓所有人覺得你超級忙碌。
+  </div>
+  <div class="model-select-wrap">
+    <label>選擇 AI 模型（影響回應品質與速度）</label>
+    <select id="model-select">
+      <option value="qwen3.5:9b" selected>qwen3.5:9b　　 ⚡ 快速推薦</option>
+      <option value="gemma4:e4b">gemma4:e4b　　 🔥 輕量</option>
+      <option value="gemma4:26b">gemma4:26b　　 🧠 聰明但慢</option>
+      <option value="qwen3.6:27b">qwen3.6:27b　　 👑 最強但最慢</option>
+    </select>
+  </div>
+  <button id="start-btn" onclick="startGame()">[ 打卡上班 ]</button>
+  <div class="version">v1.0.0 &nbsp;|&nbsp; 使用 AI 動態生成劇情 &nbsp;|&nbsp; 每個選擇都有後果</div>
+</div>
+
+<!-- 遊戲結束 -->
+<div id="gameover-overlay">
+  <div id="gameover-title"></div>
+  <div id="gameover-msg" id="gameover-msg"></div>
+  <button id="restart-btn" onclick="restartGame()">[ 重新打卡 ]</button>
+</div>
+
+<!-- 主遊戲介面 -->
+<div id="app">
+  <div id="titlebar">
+    <div class="title">◈ OFFICE_SLACKER.EXE</div>
+    <div class="right">
+      <span id="model-display"></span> &nbsp;|&nbsp;
+      遊戲時間：<span id="clock" class="clock">09:00</span>
+    </div>
+  </div>
+
+  <div id="statusbar">
+    <div class="stat-box">
+      <div class="stat-label">☕ 咖啡存量</div>
+      <div class="stat-bar"><div class="stat-fill" id="bar-coffee" style="width:80%;background:#8B4513"></div></div>
+      <div class="stat-val" id="val-coffee">80 / 100</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">💼 裝忙指數</div>
+      <div class="stat-bar"><div class="stat-fill" id="bar-busy" style="width:60%;background:var(--green)"></div></div>
+      <div class="stat-val" id="val-busy">60 / 100</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">👁 被發現率</div>
+      <div class="stat-bar"><div class="stat-fill" id="bar-risk" style="width:20%;background:var(--green)"></div></div>
+      <div class="stat-val" id="val-risk">20 / 100</div>
+    </div>
+  </div>
+
+  <div id="terminal-wrap">
+    <div id="output"></div>
+    <div id="input-row">
+      <span id="prompt-label">你的行動 &gt;</span>
+      <input id="cmd" type="text" placeholder="輸入你要做什麼..." autocomplete="off" disabled />
+      <button id="send-btn" onclick="sendAction()" disabled>ENTER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE = "https://spring-art-db47.twlin628.workers.dev";
+
+// ── 遊戲狀態 ──
+let state = {
+  coffee: 80,
+  busy: 60,
+  risk: 20,
+  gameTime: 9 * 60, // 分鐘，9:00 開始，18:00 結束
+  model: "qwen3.5:9b",
+  history: [],
+  isOver: false,
+  turnCount: 0,
+};
+
+const SYSTEM_PROMPT = `你是一個辦公室生存遊戲的旁白與裁判。風格：幽默諷刺，充滿台灣辦公室文化感。
+
+世界觀：玩家是一名資深工程師，上班時間要盡量摸魚、不做事，但讓所有人覺得他超級忙碌專業。他需要撐過一整天（09:00到18:00）。
+
+數值系統：
+- 咖啡存量(0~100)：體力來源，歸零就會在位置上打瞌睡被抓
+- 裝忙指數(0~100)：越高越安全，太低主管會質疑你在幹嘛
+- 被發現率(0~100)：達到100就被抓包，遊戲結束
+
+你的職責：
+1. 根據玩家行動，生動描述發生的事（繁體中文，2~3句，帶點諷刺幽默）
+2. 判斷數值變化（每次變化控制在-20到+20之間）
+3. 每3~5回合隨機觸發突發事件（主管巡邏、緊急會議、同事告密、客戶電話等）
+4. 當被發現率>=100時設gameover:true，輸出被抓的羞恥結局
+5. 當turnCount>=15時可以考慮觸發win條件
+
+嚴格只回傳JSON，不要任何前綴或說明：
+{
+  "narration": "場景描述（2~3句）",
+  "coffee_delta": 數字,
+  "busy_delta": 數字,
+  "risk_delta": 數字,
+  "event": "突發事件描述或null",
+  "gameover": false,
+  "gameover_msg": "被抓的羞恥故事或null",
+  "win": false,
+  "win_msg": "成功摸魚一整天的爽快結局或null",
+  "time_advance": 分鐘數字(15到45之間)
+}`;
+
+// ── 自訂游標 ──
+document.addEventListener('mousemove', e => {
+  const c = document.getElementById('cursor');
+  c.style.left = e.clientX + 'px';
+  c.style.top = e.clientY + 'px';
+});
+
+// ── Enter 送出 ──
+document.getElementById('cmd').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendAction();
+});
+
+// ── 開始遊戲 ──
+function startGame() {
+  state.model = document.getElementById('model-select').value;
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('model-display').textContent = state.model;
+  updateStats();
+  updateClock();
+  printLine('════════════════════════════════════════════', 'sep');
+  printLine('系統啟動中...', 'sys');
+  sleep(300).then(() => printLine('載入公司環境...', 'sys'));
+  sleep(600).then(() => printLine('偵測到打卡記錄...', 'sys'));
+  sleep(900).then(() => printLine('警告：今日 KPI 目標已分配，請保持表現。', 'sys'));
+  sleep(1200).then(() => {
+    printLine('════════════════════════════════════════════', 'sep');
+    printLine('你拎著超商早餐走進辦公室，坐到你那台跑了五年的工作站前。', 'ai');
+    printLine('螢幕上還開著昨天沒關的 Jira，800 個未讀通知在對你眨眼。', 'ai');
+    printLine('今天的目標：讓時針走到 18:00，同時讓大家覺得你超級忙。', 'ai');
+    printLine('────────────────────────────────────────────', 'sep');
+    printLine('提示：輸入任何你想做的行動，AI 會即時回應後果。', 'info');
+    printLine('例如：「把 Stack Overflow 縮小，假裝在看 code」', 'info');
+    printLine('════════════════════════════════════════════', 'sep');
+    enableInput();
+  });
+}
+
+// ── 送出行動 ──
+async function sendAction() {
+  const cmd = document.getElementById('cmd');
+  const action = cmd.value.trim();
+  if (!action || state.isOver) return;
+
+  cmd.value = '';
+  disableInput();
+  printLine(action, 'user');
+
+  // 組裝 messages
+  const userMsg = `當前狀態：
+- 咖啡存量：${state.coffee}/100
+- 裝忙指數：${state.busy}/100  
+- 被發現率：${state.risk}/100
+- 遊戲時間：${formatTime(state.gameTime)}
+- 回合數：${state.turnCount}
+
+玩家行動：「${action}」`;
+
+  state.history.push({ role: "user", content: userMsg });
+
+  try {
+    const res = await fetch(BASE + "/api/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: state.model,
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          ...state.history
+        ],
+        stream: false,
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.choices?.[0]?.message?.content ?? "{}";
+
+    // 解析 JSON（去除可能的 markdown code block）
+    let parsed;
+    try {
+      const clean = raw.replace(/```json|```/g, '').trim();
+      // 找到第一個 { 到最後一個 }
+      const start = clean.indexOf('{');
+      const end = clean.lastIndexOf('}');
+      parsed = JSON.parse(clean.slice(start, end + 1));
+    } catch {
+      printLine('[ 系統錯誤：AI 回應格式異常，請再試一次 ]', 'event');
+      enableInput();
+      return;
+    }
+
+    state.history.push({ role: "assistant", content: raw });
+    state.turnCount++;
+
+    // 更新數值
+    state.coffee = clamp(state.coffee + (parsed.coffee_delta || 0));
+    state.busy   = clamp(state.busy   + (parsed.busy_delta   || 0));
+    state.risk   = clamp(state.risk   + (parsed.risk_delta   || 0));
+    state.gameTime += (parsed.time_advance || 20);
+    updateStats();
+    updateClock();
+
+    // 輸出旁白
+    printLine('────────────────────────────────────────────', 'sep');
+    await typewriterPrint(parsed.narration || '', 'ai');
+
+    // 突發事件
+    if (parsed.event) {
+      await sleep(400);
+      printLine('', 'sep');
+      await typewriterPrint('⚠ ' + parsed.event, 'event');
+    }
+
+    // 數值變化提示
+    await sleep(200);
+    const deltas = [];
+    if (parsed.coffee_delta) deltas.push(`咖啡${parsed.coffee_delta > 0 ? '+' : ''}${parsed.coffee_delta}`);
+    if (parsed.busy_delta)   deltas.push(`裝忙${parsed.busy_delta > 0 ? '+' : ''}${parsed.busy_delta}`);
+    if (parsed.risk_delta)   deltas.push(`風險${parsed.risk_delta > 0 ? '+' : ''}${parsed.risk_delta}`);
+    if (deltas.length) printLine('[ ' + deltas.join(' | ') + ' ]', 'info');
+
+    // 遊戲結束判斷
+    if (parsed.gameover || state.risk >= 100) {
+      await sleep(600);
+      showGameover(false, parsed.gameover_msg || '你的摸魚行為被主管當場抓包，全辦公室都在看...');
+      return;
+    }
+    if (parsed.win || state.gameTime >= 18 * 60) {
+      await sleep(600);
+      showGameover(true, parsed.win_msg || '時鐘指向 18:00，你站起來伸了個大懶腰。又是成功摸魚的一天。');
+      return;
+    }
+    if (state.coffee <= 0) {
+      await sleep(600);
+      showGameover(false, '咖啡耗盡，你在位置上沉沉睡去，主管的腳步聲在夢中越來越近...');
+      return;
+    }
+
+    enableInput();
+
+  } catch (e) {
+    printLine('[ 連線失敗：' + e.message + ' ]', 'event');
+    enableInput();
+  }
+}
+
+// ── 遊戲結束 ──
+function showGameover(isWin, msg) {
+  state.isOver = true;
+  const overlay = document.getElementById('gameover-overlay');
+  const title = document.getElementById('gameover-title');
+  const msgEl = document.getElementById('gameover-msg');
+  if (isWin) {
+    title.textContent = '🏆 成功摸魚！';
+    title.style.color = 'var(--amber)';
+  } else {
+    title.textContent = '💀 被抓包了';
+    title.style.color = 'var(--red)';
+  }
+  msgEl.textContent = msg;
+  overlay.classList.add('show');
+}
+
+function restartGame() {
+  state = { coffee:80, busy:60, risk:20, gameTime:9*60, model:state.model, history:[], isOver:false, turnCount:0 };
+  document.getElementById('output').innerHTML = '';
+  document.getElementById('gameover-overlay').classList.remove('show');
+  document.getElementById('start-screen').style.display = 'flex';
+}
+
+// ── UI 工具 ──
+function printLine(text, cls) {
+  const out = document.getElementById('output');
+  const div = document.createElement('div');
+  div.className = 'line ' + (cls || '');
+  div.textContent = text;
+  out.appendChild(div);
+  out.scrollTop = out.scrollHeight;
+  return div;
+}
+
+async function typewriterPrint(text, cls) {
+  const out = document.getElementById('output');
+  const div = document.createElement('div');
+  div.className = 'line ' + (cls || '') + ' typing';
+  div.textContent = '';
+  out.appendChild(div);
+  for (const ch of text) {
+    div.textContent += ch;
+    out.scrollTop = out.scrollHeight;
+    await sleep(18);
+  }
+  div.classList.remove('typing');
+  return div;
+}
+
+function updateStats() {
+  setBar('coffee', state.coffee, '#8B4513');
+  setBar('busy',   state.busy,   state.busy < 30 ? 'var(--red)' : 'var(--green)');
+  setBar('risk',   state.risk,   state.risk > 70 ? 'var(--red)' : state.risk > 40 ? 'var(--amber)' : 'var(--green)');
+}
+
+function setBar(name, val, color) {
+  const fill = document.getElementById('bar-' + name);
+  const label = document.getElementById('val-' + name);
+  fill.style.width = val + '%';
+  fill.style.background = color;
+  label.textContent = val + ' / 100';
+  label.style.color = color;
+}
+
+function updateClock() {
+  document.getElementById('clock').textContent = formatTime(state.gameTime);
+}
+
+function formatTime(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+}
+
+function clamp(v) { return Math.max(0, Math.min(100, Math.round(v))); }
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function enableInput() {
+  document.getElementById('cmd').disabled = false;
+  document.getElementById('send-btn').disabled = false;
+  document.getElementById('cmd').focus();
+}
+function disableInput() {
+  document.getElementById('cmd').disabled = true;
+  document.getElementById('send-btn').disabled = true;
+}
+</script>
+</body>
+</html>
